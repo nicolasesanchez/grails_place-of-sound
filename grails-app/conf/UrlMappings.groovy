@@ -7,7 +7,12 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+//        "/"(view:"/index")
         "500"(view:'/error')
+
+        "/home"{
+            controller = "placeOfSound"
+            action = "index"
+        }
 	}
 }
