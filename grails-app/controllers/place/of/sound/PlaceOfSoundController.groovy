@@ -1,19 +1,12 @@
 package place.of.sound
 
-import com.placeofsound.test.TestTable
+import com.placeofsound.User
 
 class PlaceOfSoundController {
 
     def index() {
-        List<TestTable> registers = TestTable.findAll()
+        User user = User.findById(1)
 
-        StringBuilder sb = new StringBuilder()
-        registers.each {
-            sb.append(it.toString())
-        }
-
-        // TODO it works, now build the db schema
-
-        render sb.toString()
+        render user.name
     }
 }
