@@ -1,9 +1,11 @@
 package com.placeofsound
 
-class Attribute {
+class Category {
 
     long id
     String name
+    int treeNode
+    Integer parentId
 
     static constraints = {
     }

@@ -14,5 +14,10 @@ class UrlMappings {
             controller = "placeOfSound"
             action = "index"
         }
+
+        "/submit_instrument"{
+            controller = "placeOfSound"
+            action = [GET: "getInstrumentForm", POST: "submitInstrument"]
+        }
 	}
 }
