@@ -22,7 +22,8 @@
                 </g:each>
             </select>--}%
 
-            <g:select  name="category" from="${categories}" optionKey="id" optionValue="name" noSelection="[null: ' ']"/>
+            <g:select class="custom-select" name="category" from="${categories}" optionKey="id" optionValue="name"
+                      noSelection="[null: ' ']"/>
 
         </div>
     </div>
@@ -42,13 +43,14 @@
         <input class="form-control" name="price" type="number" id="precio" placeholder="Ingrese precio producto" required/>
     </div>
 
+%{--    <img src="${image}" alt="Grails" />--}%
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text">Upload</span>
         </div>
 
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile01">
+            <input type="file" name="picture" class="custom-file-input" id="inputGroupFile01">
             <label class="custom-file-label" for="inputGroupFile01">Cargar foto del producto</label>
         </div>
     </div>

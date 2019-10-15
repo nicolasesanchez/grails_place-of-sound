@@ -5,7 +5,8 @@ class User {
 
     long id
     String name
-    String lastname
+    String lastName
+    String userName
     String email
     String password
     String role
