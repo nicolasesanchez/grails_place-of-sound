@@ -6,7 +6,7 @@ class Instrument {
     String title
     String description
     BigDecimal price
-    byte[] picture
+    long picture
 
     static constraints = {
         picture(maxSize: 1024 * 1024 * 2)

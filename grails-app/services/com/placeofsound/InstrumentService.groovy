@@ -11,7 +11,7 @@ class InstrumentService {
         instrumentInstance.title = title
         instrumentInstance.description = description
         instrumentInstance.price = price
-        instrumentInstance.picture = picture
+        instrumentInstance.picture = instrumentInstance
 
         instrumentInstance.save(flush: true, failOnError: true)
     }

@@ -14,14 +14,11 @@ class PlaceOfSoundController {
     def index() {
         User user = User.findById(1)
 
-        render user.name
+        render "Login success"
     }
 
     def getInstrumentForm() {
-        byte[] picture = Instrument.findById(4).picture
-        println("DEBUG ±±± picture -- ${picture}")
-        // TODO guardar imagenes en dir de compu (o app) y traer a traves de path
-        render(view: "instrumentForm", model: [categories: categoryService.getLOneCategories(), image: "file:///Users/nicsanchez/Desktop/" + new String(picture)])
+        render(view: "instrumentForm", model: [categories: categoryService.getLOneCategories()])
     }
 
     def submitInstrument() {
@@ -49,9 +46,13 @@ class PlaceOfSoundController {
         cleanedParams.description = params.description
         cleanedParams.price = params.price as BigDecimal
         println("DEBUG ±±± picture -- ${params.picture}")
-        cleanedParams.picture = params.picture as byte[]
+        cleanedParams.picture = params.picture //as byte[]
 
         return cleanedParams
+    }
+
+    def getSignInForm() {
+        render(view: "login")
     }
 
     def signIn() {
@@ -71,13 +72,18 @@ class PlaceOfSoundController {
         }
     }
 
+    def getSignUpForm() {
+        render(view: "registerForm")
+    }
+
     def signUp() {
+        println("DEBUG params -- ${params}")
         String name = params.name
         String lastName = params.lastName
         String email = params.email
         String password = params.password
-        String role = params.role
-        String userName = params.userName
+        String role = params.role ?: "buyer"
+        String userName = params.userName ?: "${name}.${lastName}".toLowerCase()
 
         User userInstance = new User()
 

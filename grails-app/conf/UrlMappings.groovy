@@ -22,12 +22,12 @@ class UrlMappings {
 
         "/user/sign_in"{
             controller = "placeOfSound"
-            action = [GET: "signIn"]
+            action = [GET: "getSignInForm", POST: "signIn"]
         }
 
         "/user/sign_up"{
             controller = "placeOfSound"
-            action = [PUT: "signUp"]
+            action = [GET: "getSignUpForm", PUT: "signUp"]
         }
 	}
 }
