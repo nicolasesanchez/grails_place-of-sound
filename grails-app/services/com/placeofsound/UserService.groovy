@@ -1,0 +1,47 @@
+package com.placeofsound
+
+import grails.transaction.Transactional
+
+@Transactional
+class UserService {
+
+    long createNewUser(String name, String lastName, String email, String password, String role, String userName) {
+        User userInstance = new User()
+
+        userInstance.name = name
+        userInstance.lastName = lastName
+        userInstance.email = email
+        userInstance.password = password
+        userInstance.role = role
+        userInstance.userName = userName ?: buildDefaultUser(name, lastName)
+        userInstance.cookie = getRandomNumber()
+
+        userInstance.save(failOnError: true, flush: true)
+
+        return userInstance.cookie
+    }
+
+    long logUserIn(String userName, String password) {
+        long result = 0
+        User user = User.findByUserName(userName)
+
+        if (user && user.password == password) result = updateCookie(user)
+
+        return result
+    }
+
+    private long updateCookie(User user) {
+        long newCookieValue = getRandomNumber()
+        user.cookie = newCookieValue
+        return newCookieValue
+    }
+
+    private String buildDefaultUser(String name, String lastName) {
+        return "${name}.${lastName}"
+    }
+
+    private long getRandomNumber() {
+        return ((Math.random() * 10000) + 1000) as long
+    }
+
+}

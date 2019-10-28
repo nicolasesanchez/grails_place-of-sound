@@ -11,9 +11,13 @@ class InstrumentService {
         instrumentInstance.title = title
         instrumentInstance.description = description
         instrumentInstance.price = price
-        instrumentInstance.picture = instrumentInstance
+        instrumentInstance.picture = picture
 
         instrumentInstance.save(flush: true, failOnError: true)
+    }
+
+    byte[] getPictureByInstrumentId(long instrumentId) {
+        return Instrument.findById(instrumentId).picture
     }
 
 }
