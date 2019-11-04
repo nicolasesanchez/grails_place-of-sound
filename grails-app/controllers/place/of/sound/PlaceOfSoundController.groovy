@@ -3,6 +3,7 @@ package place.of.sound
 import com.placeofsound.CategoryService
 import com.placeofsound.InstrumentService
 import com.placeofsound.UserService
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest
 
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
@@ -19,12 +20,12 @@ class PlaceOfSoundController {
 
         if (cookieValue) {
             Cookie cookie = new Cookie("user_cookie", cookieValue)
-            cookie.setMaxAge(3600)
+            cookie.setMaxAge(3600) // one hour
 
             response.addCookie(cookie)
         }
 
-        render "some cookie -- ${params.cookie}"
+        render(view: "random")
     }
 
     def getInstrumentForm() {
@@ -53,7 +54,7 @@ class PlaceOfSoundController {
         cleanedParams.category = "" // iterate categories
         cleanedParams.description = params.description
         cleanedParams.price = params.price as BigDecimal
-        cleanedParams.picture = params.picture as byte[]
+        cleanedParams.picture = (request as DefaultMultipartHttpServletRequest).getFile("picture")
 
         return cleanedParams
     }
@@ -85,5 +86,17 @@ class PlaceOfSoundController {
         response.outputStream << instrumentService.getPictureByInstrumentId(params.id as long)
         response.outputStream.flush()
     }
+
+    /*private String wrapCookie(long value) {
+        return (((value as String) as List).collect { digit -> (digit as long) * 7l }).join()
+    }
+
+    private String unwrapCookie(long value) {
+        long result = 0
+
+        (value as List<Long>).each { digit -> result += ((digit / 5) / 2) }
+
+        return result
+    }*/
 
 }

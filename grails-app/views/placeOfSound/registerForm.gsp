@@ -9,7 +9,7 @@
 </head>
 
 <!-- Default form register -->
-<g:form class="text-center border border-light p-5" method="PUT" url="/user/sign_up">
+<g:form class="text-center border border-light p-5" method="PUT" url="/users/sign_up">
 
     <p class="h4 mb-4">Sign up</p>
 
