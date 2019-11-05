@@ -25,11 +25,11 @@ class PlaceOfSoundController {
             response.addCookie(cookie)
         }
 
-        render(view: "random")
+        render(view: "home", model: [categories: categoryService.getCategoriesList(), instruments: instrumentService.getAllInstruments()])
     }
 
     def getInstrumentForm() {
-        render(view: "instrumentForm", model: [categories: categoryService.getLOneCategories()])
+        render(view: "instrumentForm", model: [categories: categoryService.getAllCategories()])
     }
 
     def submitInstrument() {

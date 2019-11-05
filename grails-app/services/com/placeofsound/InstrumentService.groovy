@@ -17,6 +17,10 @@ class InstrumentService {
         instrumentInstance.save(flush: true, failOnError: true)
     }
 
+    List<Instrument> getAllInstruments() {
+        return Instrument.findAll()
+    }
+
     byte[] getPictureByInstrumentId(long instrumentId) {
         return Instrument.findById(instrumentId).picture
     }

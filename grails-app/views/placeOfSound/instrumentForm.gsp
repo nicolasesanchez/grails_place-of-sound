@@ -22,7 +22,8 @@
                 </g:each>
             </select>--}%
 
-            <g:select class="custom-select" name="category" from="${categories}" optionKey="id" optionValue="name"
+            <g:select class="custom-select" name="category" from="${categories.findAll { c -> 0 == c.treeNode }}"
+                      optionKey="id" optionValue="name"
                       noSelection="[null: ' ']"/>
 
         </div>
