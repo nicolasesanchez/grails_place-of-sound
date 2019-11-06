@@ -1,6 +1,7 @@
 package place.of.sound
 
 import com.placeofsound.CategoryService
+import com.placeofsound.Instrument
 import com.placeofsound.InstrumentService
 import com.placeofsound.UserService
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest
@@ -25,7 +26,25 @@ class PlaceOfSoundController {
             response.addCookie(cookie)
         }
 
-        render(view: "home", model: [categories: categoryService.getCategoriesList(), instruments: instrumentService.getAllInstruments()])
+        List<List<Instrument>> instruments = []
+
+        List<Instrument> instrumentsDb = instrumentService.getAllInstruments()
+
+
+        int index = 0
+
+        instruments << []
+
+        for (int i = 0; i < instrumentsDb.size(); i++) {
+            instruments[index] << instrumentsDb[i]
+
+            if ((i + 1) % 4 == 0) {
+                index++
+                instruments << []
+            }
+        }
+
+        render(view: "home", model: [categories: categoryService.getCategoriesList(), instrumentsList: instruments])
     }
 
     def getInstrumentForm() {

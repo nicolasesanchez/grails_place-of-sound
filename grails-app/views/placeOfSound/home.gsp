@@ -121,6 +121,44 @@
 <br>
 <br>
 
+
+<g:each var="instrumentNode" in="${instrumentsList}">
+    <div class="card-deck">
+    <g:each var="instrument" in="${instrumentNode}">
+    <div class="card">
+        %{--<img src="..." class="card-img-top" alt="...">--}%
+
+        <img src="${createLink(controller: "PlaceOfSound", action: "getInstrumentPicture", id: instrument.id)}" width="200" height="200" />
+
+        <div class="card-body">
+            <h2 class="card-title">Título: ${instrument.title}</h2>
+            <h5 class="card-price">Precio: $${instrument.price}</h5>
+        </div>
+    </div>
+    </g:each>
+</div>
+    <br>
+    <br>
+</g:each>
+
+<br>
+<br>
+%{--<div class="card-deck">
+    <g:each var="instrument" in="${instruments}">
+        <div class="card">
+            --}%%{--<img src="..." class="card-img-top" alt="...">--}%%{--
+
+            <img src="${createLink(controller: "PlaceOfSound", action: "getInstrumentPicture", id: instrument.id)}" width="300" height="300" />
+
+            <div class="card-body">
+                <h2 class="card-title">Título: ${instrument.title}</h2>
+                <h5 class="card-price">Precio: $${instrument.price}</h5>
+            </div>
+        </div>
+    </g:each>
+</div>--}%
+
+%{--
 <div class="card-deck">
     <div class="card">
         <img src="..." class="card-img-top" alt="...">
@@ -149,3 +187,4 @@
         </div>
     </div>
 </div>
+--}%
