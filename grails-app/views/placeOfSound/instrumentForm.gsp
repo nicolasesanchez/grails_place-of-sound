@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
-<g:form method="POST" url="/submit_instrument">
+<g:uploadForm method="POST" url="/submit_instrument">
     <div class="form-group">
         <label for="tituloProd">Titulo Producto</label>
         <input type="text" name="title" class="form-control" id="tituloProd" placeholder="Ingrese un titulo a publicar" required/>
@@ -22,7 +22,8 @@
                 </g:each>
             </select>--}%
 
-            <g:select class="custom-select" name="category" from="${categories}" optionKey="id" optionValue="name"
+            <g:select class="custom-select" name="category" from="${categories.findAll { c -> 0 == c.treeNode }}"
+                      optionKey="id" optionValue="name"
                       noSelection="[null: ' ']"/>
 
         </div>
@@ -56,7 +57,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary" id="btn">Publicar!</button>
-</g:form>
+</g:uploadForm>
 
 
 

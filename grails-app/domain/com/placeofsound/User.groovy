@@ -10,6 +10,7 @@ class User {
     String email
     String password
     String role
+    long cookie
 
     static constraints = {
     }

@@ -16,7 +16,7 @@
     </div>
 
     <!-- Campos login -->
-    <g:form method="POST" url="/user/sign_in">
+    <g:form method="POST" url="/users/sign_in">
       <input type="text" name="userName" id="login" class="fadeIn second" name="login" placeholder="login">
       <input type="text" name="password" id="password" class="fadeIn third" name="login" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
@@ -24,7 +24,7 @@
 
     <!-- Registrar usuario -->
     <div id="formFooter">
-      <a class="underlineHover" href="/user/sign_up" action >Register</a>
+      <a class="underlineHover" href="/users/sign_up" action >Register</a>
 %{--    <g:createLink url="/user/sign_in" action="POST" namespace="Register" />--}%
     </div>
 

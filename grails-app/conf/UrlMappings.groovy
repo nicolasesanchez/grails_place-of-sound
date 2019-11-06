@@ -20,12 +20,12 @@ class UrlMappings {
             action = [GET: "getInstrumentForm", POST: "submitInstrument"]
         }
 
-        "/user/sign_in"{
+        "/users/sign_in"{
             controller = "placeOfSound"
             action = [GET: "getSignInForm", POST: "signIn"]
         }
 
-        "/user/sign_up"{
+        "/users/sign_up"{
             controller = "placeOfSound"
             action = [GET: "getSignUpForm", PUT: "signUp"]
         }
