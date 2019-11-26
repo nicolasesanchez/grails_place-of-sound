@@ -1,0 +1,10 @@
+#checkout-info{
+    padding: 100px;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+body {
+  background-color: lightblue;	
+}
