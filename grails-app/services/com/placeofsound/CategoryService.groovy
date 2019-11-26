@@ -2,7 +2,7 @@ package com.placeofsound
 
 import grails.transaction.Transactional
 
-import java.util.stream.Collectors
+//import java.util.stream.Collectors
 
 @Transactional
 class CategoryService {
@@ -14,12 +14,20 @@ class CategoryService {
     List<Category.TreeNode> getCategoriesList() {
         List<Category> allCategories = getAllCategories()
 
-        return allCategories.stream()
+
+        return allCategories
+                .findAll { c -> 0 == c.treeNode }
+                .collect { c ->
+                    new Category.TreeNode(c.id, c.name, c.treeNode, null, allCategories.findAll { c.id == it.parentId }
+                            .collect { new Category.TreeNode(it.id, it.name, it.treeNode, new Category(it), []) })
+                }
+
+        /*return allCategories.stream()
                 .filter { c -> 0 == c.treeNode }
                 .map { c ->
                     new Category.TreeNode(c.id, c.name, c.treeNode, null, allCategories.findAll { (c.id == it.parentId) }
                     .collect { new Category.TreeNode(it.id, it.name, it.treeNode, new Category(it), []) })
                 }
-                .collect(Collectors.toList())
+                .collect(Collectors.toList())*/
     }
 }

@@ -14,13 +14,11 @@ class PlaceOfSoundController {
     InstrumentService instrumentService
     UserService userService
 
-    private final String DEFAULT_USER_ROLE = "buyer"
-
     def index() {
-        String cookieValue = params.cookie
+        String cookieValue = params.remove("cookie")
 
         if (cookieValue) {
-            Cookie cookie = new Cookie("user_cookie", cookieValue)
+            Cookie cookie = new Cookie(userService.USER_COOKIE, cookieValue)
             cookie.setMaxAge(3600) // one hour
 
             response.addCookie(cookie)
@@ -44,11 +42,33 @@ class PlaceOfSoundController {
             }
         }
 
-        render(view: "home", model: [categories: categoryService.getCategoriesList(), instrumentsList: instruments])
+        boolean loggedIn = ((getUserCookieIfAny() && !getUserCookieIfAny().value.isEmpty()) || cookieValue)
+
+        if (params.remove("fromSignOut")) {
+            Cookie cookie = new Cookie(userService.USER_COOKIE, "")
+            cookie.setMaxAge(0) // deleted
+
+            response.addCookie(cookie)
+            loggedIn = false
+        }
+
+        render(view: "home", model: [categories: categoryService.getCategoriesList(), instrumentsList: instruments, logedIn: loggedIn, isAdmin: isAdminUser(cookieValue)])
+    }
+
+    private boolean isAdminUser(String cookieValue = null) {
+        if (cookieValue) {
+            return userService.isAdminUser(cookieValue as long)
+        }
+
+        Cookie cookie = getUserCookieIfAny()
+        return cookie?.value ? userService.isAdminUser(cookie.value as long) : false
     }
 
     def getInstrumentForm() {
-        render(view: "instrumentForm", model: [categories: categoryService.getAllCategories()])
+        Cookie userCookie = getUserCookieIfAny()
+        if (!userCookie || !userService.isAdminUser(userCookie.value as long)) return [response: [message: "User not logged in or does not have the right permissions"], status: HttpServletResponse.SC_BAD_REQUEST]
+
+        render(view: "instrumentForm", model: [categories: categoryService.getAllCategories(), logedIn: true, isAdmin: true])
     }
 
     def submitInstrument() {
@@ -92,12 +112,19 @@ class PlaceOfSoundController {
         }
     }
 
+    def signOut() {
+        Cookie userCookie = getUserCookieIfAny()
+        userService.logUserOut(userCookie.value as long)
+
+        redirect(uri: "/home", params: [fromSignOut: true])
+    }
+
     def getSignUpForm() {
         render(view: "registerForm")
     }
 
     def signUp() {
-        long cookieValue = userService.createNewUser(params.name, params.lastName, params.email, params.password, (params.role ?: DEFAULT_USER_ROLE), params.userName)
+        long cookieValue = userService.createNewUser(params.name, params.lastName, params.email, params.password, (params.role ?: userService.BUYER_ROLE), params.userName)
         redirect(uri: "/home", params: [cookie: cookieValue])
     }
 
@@ -117,5 +144,13 @@ class PlaceOfSoundController {
 
         return result
     }*/
+
+    private Cookie getUserCookieIfAny() {
+        return request.getCookies().find { userService.USER_COOKIE == it.name }
+    }
+
+    def random() {
+        render(view:"checkout")
+    }
 
 }

@@ -1,26 +1,22 @@
-<head>
+%{--<head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" href="cargarInstrumento.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-</head>
+</head>--}%
+
+<g:render template="header" model="[userLogedIn: logedIn, isAdmin: isAdmin]"/>
 
 <g:uploadForm method="POST" url="/submit_instrument">
     <div class="form-group">
         <label for="tituloProd">Titulo Producto</label>
-        <input type="text" name="title" class="form-control" id="tituloProd" placeholder="Ingrese un titulo a publicar" required/>
-%{--        <input type="text"  value="" required="" id="game" />--}%
+        <input type="text" name="title" class="form-control" id="tituloProd" placeholder="Ingrese un titulo a publicar"
+               required/>
     </div>
 
     <div class="form-row align-items-center" id="productRow0">
         <div class="col-auto my-1">
             <label for="tipoInstrumento">Tipo Instrumento</label>
-            %{--<select class="custom-select" id="product" required>
-                <option value="default">Elegir tipo Instrumento</option>
-                <g:each var="category" in="${categories}">
-                    <option value="${category.id}">${category.name}</option>
-                </g:each>
-            </select>--}%
 
             <g:select class="custom-select" name="category" from="${categories.findAll { c -> 0 == c.treeNode }}"
                       optionKey="id" optionValue="name"
@@ -33,7 +29,8 @@
 
     <div class="form-group">
         <label for="descripcion">Descripcion:</label>
-        <textarea name="description" class="form-control" id="descripcion" placeholder="Describir el producto"></textarea>
+        <textarea name="description" class="form-control" id="descripcion"
+                  placeholder="Describir el producto"></textarea>
     </div>
 
     <div class="input-group mb-3">
@@ -41,10 +38,10 @@
             <span class="input-group-text">Precio</span>
             <span class="input-group-text">$</span>
         </div>
-        <input class="form-control" name="price" type="number" id="precio" placeholder="Ingrese precio producto" required/>
+        <input class="form-control" name="price" type="number" id="precio" placeholder="Ingrese precio producto"
+               required/>
     </div>
 
-%{--    <img src="${image}" alt="Grails" />--}%
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text">Upload</span>
@@ -57,6 +54,8 @@
     </div>
 
     <button type="submit" class="btn btn-primary" id="btn">Publicar!</button>
+    <a href="#" onclick="javascript:window.history.back();"><button type="submit"
+                                                                    class="btn btn-primary">Volver</button></a>
 </g:uploadForm>
 
 

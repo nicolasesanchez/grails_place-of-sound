@@ -15,6 +15,11 @@ class UrlMappings {
             action = "index"
         }
 
+        "/random"{
+            controller = "placeOfSound"
+            action = "random"
+        }
+
         "/submit_instrument"{
             controller = "placeOfSound"
             action = [GET: "getInstrumentForm", POST: "submitInstrument"]

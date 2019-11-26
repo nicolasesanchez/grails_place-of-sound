@@ -7,11 +7,9 @@ class Category {
     int treeNode
     Integer parentId
 
-    static constraints = {
-    }
+    static constraints = {}
 
-    
-        Category(Category category) {
+    Category(Category category) {
         id = category.id
         name = category.name
         treeNode = category.treeNode

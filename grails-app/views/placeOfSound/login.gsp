@@ -24,9 +24,10 @@
 
     <!-- Registrar usuario -->
     <div id="formFooter">
-      <a class="underlineHover" href="/users/sign_up" action >Register</a>
-%{--    <g:createLink url="/user/sign_in" action="POST" namespace="Register" />--}%
+      <a class="underlineHover" href="/users/sign_up" action >Registrarse</a>
+      <a class="underlineHover" href="#" onclick="javascript:window.history.back();">Volver</a>
     </div>
+
 
   </div>
 </div>
